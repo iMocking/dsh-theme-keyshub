@@ -34,27 +34,30 @@ const THEME_SPECS = [
     // semi-transparent mask for legibility, and popovers stay near-opaque.
     alpha: { base: 0.35, layer1: 0.78, layer2: 0.7, overlay: 0.94, sidebar: 0.66 },
     colors: {
-      primary: '#00f0ff', bgBase: '#0a0e1a', bgLayer1: '#151c2e', bgLayer2: '#1a2035', bgOverlay: '#1e2640',
-      sidebar: '#111827', border1: 'rgba(0, 240, 255, 0.15)', border2: 'rgba(0, 240, 255, 0.4)',
-      text1: '#e8edf5', text2: '#8892a8', success: '#00ff88', warn: '#ffaa00', error: '#ff3366',
+      primary: '#00f0ff', primaryDark: '#00b8c5', secondary: '#ff2d95', bgBase: '#0a0e1a', bgLayer1: '#151c2e',
+      bgLayer2: '#1a2035', bgTertiary: '#1a2035', bgOverlay: '#1e2640', sidebar: '#111827',
+      border1: 'rgba(0, 240, 255, 0.15)', border2: 'rgba(0, 240, 255, 0.4)',
+      text1: '#e8edf5', text2: '#8892a8', text3: '#5a6478', success: '#00ff88', warn: '#ffaa00', error: '#ff3366',
     },
   },
   {
     id: 'comiket', displayName: 'COMIKET', colorScheme: 'light', wallpaper: '/dsh-theme-keyshub/comiket.jpg',
     alpha: { base: 0.4, layer1: 0.82, layer2: 0.76, overlay: 0.95, sidebar: 0.7 },
     colors: {
-      primary: '#ff6b2b', bgBase: '#faf8f5', bgLayer1: '#ffffff', bgLayer2: '#ebe6de', bgOverlay: '#ffffff',
-      sidebar: '#f2eee8', border1: 'rgba(0, 0, 0, 0.1)', border2: 'rgba(0, 0, 0, 0.24)',
-      text1: '#2a2520', text2: '#6b6158', success: '#22c55e', warn: '#f59e0b', error: '#ef4444',
+      primary: '#ff6b2b', primaryDark: '#cc5522', secondary: '#3b9eff', bgBase: '#faf8f5', bgLayer1: '#ffffff',
+      bgLayer2: '#ebe6de', bgTertiary: '#ebe6de', bgOverlay: '#ffffff', sidebar: '#f2eee8',
+      border1: 'rgba(0, 0, 0, 0.1)', border2: 'rgba(0, 0, 0, 0.24)',
+      text1: '#2a2520', text2: '#6b6158', text3: '#9e958b', success: '#22c55e', warn: '#f59e0b', error: '#ef4444',
     },
   },
   {
     id: 'ironcore', displayName: 'IRONCORE', colorScheme: 'dark', wallpaper: '/dsh-theme-keyshub/ironcore.jpg',
     alpha: { base: 0.35, layer1: 0.78, layer2: 0.7, overlay: 0.94, sidebar: 0.66 },
     colors: {
-      primary: '#f0a030', bgBase: '#121418', bgLayer1: '#1e2128', bgLayer2: '#22262e', bgOverlay: '#282c35',
-      sidebar: '#1a1d24', border1: 'rgba(240, 160, 48, 0.12)', border2: 'rgba(240, 160, 48, 0.36)',
-      text1: '#d8dce5', text2: '#808898', success: '#4ecdc4', warn: '#f0a030', error: '#e74c5e',
+      primary: '#f0a030', primaryDark: '#c08020', secondary: '#4ecdc4', bgBase: '#121418', bgLayer1: '#1e2128',
+      bgLayer2: '#22262e', bgTertiary: '#22262e', bgOverlay: '#282c35', sidebar: '#1a1d24',
+      border1: 'rgba(240, 160, 48, 0.12)', border2: 'rgba(240, 160, 48, 0.36)',
+      text1: '#d8dce5', text2: '#808898', text3: '#555c6c', success: '#4ecdc4', warn: '#f0a030', error: '#e74c5e',
     },
   },
 ]
@@ -76,19 +79,71 @@ function buildThemeDef(spec) {
     displayName: spec.displayName,
     colorScheme: spec.colorScheme,
     tokens: {
+      /* ── surfaces ── */
       '--dsw-alias-bg-base': hexToRgba(c.bgBase, a.base),
       '--dsw-alias-bg-layer-1': hexToRgba(c.bgLayer1, a.layer1),
       '--dsw-alias-bg-layer-2': hexToRgba(c.bgLayer2, a.layer2),
+      '--dsw-alias-bg-layer-3': hexToRgba(c.bgLayer2, 0.92),
       '--dsw-alias-bg-overlay': hexToRgba(c.bgOverlay, a.overlay),
+      '--dsw-specific-sidebar-fill': hexToRgba(c.sidebar, a.sidebar),
+      /* ── strokes ── */
       '--dsw-alias-border-l1': c.border1,
       '--dsw-alias-border-l2': c.border2,
+      '--dsw-alias-border-l2-darkmode-thin': c.border1,
+      '--dsw-alias-border-l3': hexToRgba(c.primary, 0.3),
+      '--dsw-alias-border-l4': hexToRgba(c.primary, 0.4),
+      /* ── brand / labels ── */
       '--dsw-alias-brand-primary': c.primary,
       '--dsw-alias-label-primary': c.text1,
       '--dsw-alias-label-secondary': c.text2,
+      '--dsw-alias-label-tertiary': c.text3,
+      '--dsw-alias-label-caption': c.text3,
+      '--dsw-alias-label-dimmed': c.text3,
+      /* ── state accents ── */
       '--dsw-alias-state-success-primary': c.success,
       '--dsw-alias-state-warn-primary': c.warn,
       '--dsw-alias-state-error-primary': c.error,
-      '--dsw-specific-sidebar-fill': hexToRgba(c.sidebar, a.sidebar),
+      '--dsw-alias-state-business-primary': c.secondary,
+      '--dsw-alias-state-business-tertiary': hexToRgba(c.secondary, 0.18),
+      /* ── buttons (composer + generic) ──
+         info-fill is the composer send circle (white glyph is hard-coded, so
+         it uses the darker primary variant for contrast); tool-bar fill drives
+         the composer tool-row buttons. */
+      '--dsw-alias-button-info-fill': c.primaryDark,
+      '--dsw-alias-button-info-hover': c.primary,
+      '--dsw-alias-button-primary-fill': c.primary,
+      '--dsw-alias-button-primary-hover': c.primaryDark,
+      '--dsw-alias-button-primary-dimmed': hexToRgba(c.primary, 0.35),
+      '--dsw-alias-button-tool-bar-fill': hexToRgba(c.primary, 0.16),
+      '--dsw-alias-button-tool-bar-hover': hexToRgba(c.primary, 0.26),
+      '--dsw-alias-button-tool-bar-fill-invisible': hexToRgba(c.primary, 0.1),
+      '--dsw-alias-button-ghost-active-fill': hexToRgba(c.primary, 0.14),
+      '--dsw-alias-button-ghost-active-hover': hexToRgba(c.primary, 0.2),
+      '--dsw-alias-button-ghost-active-border': hexToRgba(c.primary, 0.45),
+      '--dsw-alias-button-floating-fill': hexToRgba(c.bgLayer1, 0.92),
+      '--dsw-alias-button-floating-hover': hexToRgba(c.bgLayer2, 0.92),
+      /* ── interactive hovers (message actions, chips, lists) ── */
+      '--dsw-alias-interactive-bg-hover': hexToRgba(c.primary, 0.1),
+      '--dsw-alias-interactive-bg-hover-solid': hexToRgba(c.primary, 0.18),
+      '--dsw-alias-interactive-bg-active': hexToRgba(c.primary, 0.16),
+      '--dsw-alias-interactive-bg-hover-accent': hexToRgba(c.primary, 0.22),
+      /* ── system output cards: code blocks, tool status, bubbles ── */
+      '--dsw-alias-markdown-code-block': hexToRgba(c.bgTertiary, 0.82),
+      '--dsw-alias-markdown-code-block-banner': hexToRgba(c.bgTertiary, 0.9),
+      '--dsw-alias-markdown-inline-code': hexToRgba(c.bgTertiary, 0.75),
+      '--dsw-alias-markdown-tag': hexToRgba(c.bgTertiary, 0.75),
+      '--dsw-alias-markdown-placeholder': hexToRgba(c.bgTertiary, 0.55),
+      '--dsw-alias-markdown-citation': hexToRgba(c.bgTertiary, 0.6),
+      /* ── specific seats: input card, message bubbles, attach, nav ── */
+      '--dsw-specific-input-major': hexToRgba(c.bgLayer1, 0.9),
+      '--dsw-specific-bubble': hexToRgba(c.bgLayer1, 0.85),
+      '--dsw-specific-bubble-highlight': hexToRgba(c.bgLayer2, 0.85),
+      '--dsw-specific-selector': hexToRgba(c.primary, 0.15),
+      '--dsw-specific-tip': hexToRgba(c.bgTertiary, 0.7),
+      '--dsw-specific-sidebar-nav-item-active': hexToRgba(c.primary, 0.14),
+      '--dsw-specific-sidebar-nav-item-hover': hexToRgba(c.primary, 0.09),
+      '--dsw-specific-sidebar-nav-item-active-accent': hexToRgba(c.primary, 0.3),
+      /* ── wallpaper (custom token consumed by the WALLPAPER_CSS rule) ── */
       '--dsw-theme-wallpaper': "url('" + spec.wallpaper + "')",
     },
   }
