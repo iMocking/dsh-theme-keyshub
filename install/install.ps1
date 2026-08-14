@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Install dsh-theme-keyshub into a dsh deployment profile.
+Install dsh-theme-triptych into a dsh deployment profile.
 
 .DESCRIPTION
 1. pnpm add (or npm install) the package inside the profile dir
@@ -12,7 +12,7 @@ Install dsh-theme-keyshub into a dsh deployment profile.
 Profile directory name under $DSH_HOME/profiles. Defaults to $env:DSH_PROFILE or "web".
 
 .PARAMETER Source
-Package source: npm name (default "dsh-theme-keyshub"), git URL, or local path.
+Package source: npm name (default "dsh-theme-triptych"), git URL, or local path.
 
 .EXAMPLE
 powershell -ExecutionPolicy Bypass -File install.ps1
@@ -20,7 +20,7 @@ powershell -ExecutionPolicy Bypass -File install.ps1 -Profile web
 #>
 param(
   [string]$Profile = "",
-  [string]$Source = "dsh-theme-keyshub"
+  [string]$Source = "dsh-theme-triptych"
 )
 $ErrorActionPreference = "Stop"
 
@@ -48,32 +48,32 @@ if (-not (Test-Path $patchFile)) {
 }
 $content = Get-Content $patchFile -Raw
 $trimmed = $content.Trim()
-if ($trimmed -match "name: dsh-theme-keyshub") {
-  Write-Host "==> cordis.patch.yml already contains dsh-theme-keyshub — nothing to patch"
+if ($trimmed -match "name: dsh-theme-triptych") {
+  Write-Host "==> cordis.patch.yml already contains dsh-theme-triptych — nothing to patch"
 }
 elseif ($trimmed -eq "[]" -or $trimmed -eq "") {
   $new = @"
-# dsh-theme-keyshub — appearance themes (added by installer)
+# dsh-theme-triptych — appearance themes (added by installer)
 - insert:
-    - id: dsh-theme-keyshub
-      name: dsh-theme-keyshub
+    - id: dsh-theme-triptych
+      name: dsh-theme-triptych
 "@
   Set-Content -Path $patchFile -Value $new -Encoding utf8 -NoNewline
-  Write-Host "==> replaced empty patch with the dsh-theme-keyshub insert"
+  Write-Host "==> replaced empty patch with the dsh-theme-triptych insert"
 }
 else {
   $addition = @"
 
-# dsh-theme-keyshub — appearance themes (added by installer)
+# dsh-theme-triptych — appearance themes (added by installer)
 - insert:
-    - id: dsh-theme-keyshub
-      name: dsh-theme-keyshub
+    - id: dsh-theme-triptych
+      name: dsh-theme-triptych
 "@
   Add-Content -Path $patchFile -Value $addition -Encoding utf8 -NoNewline
-  Write-Host "==> appended the dsh-theme-keyshub insert to cordis.patch.yml"
+  Write-Host "==> appended the dsh-theme-triptych insert to cordis.patch.yml"
 }
 
 Write-Host ""
 Write-Host "Done. Restart dsh, e.g.:  dsh --profile $Profile"
-Write-Host "Verify wallpaper route:   curl -I http://127.0.0.1:3080/dsh-theme-keyshub/nexus.jpg"
+Write-Host "Verify wallpaper route:   curl -I http://127.0.0.1:3080/dsh-theme-triptych/nexus.jpg"
 Write-Host "Then in the Web GUI: sidebar-footer palette button, or Settings -> General -> 外观主题"

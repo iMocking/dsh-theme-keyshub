@@ -1,4 +1,4 @@
-# dsh-theme-keyshub
+# dsh-theme-triptych
 
 DeepSeek Harness（DSH）外观主题插件包 —— 把 [keyshub.top](https://keyshub.top) 的三种主题色调与壁纸带进 DSH Web GUI。
 
@@ -24,7 +24,7 @@ DeepSeek Harness（DSH）外观主题插件包 —— 把 [keyshub.top](https://
 这是一个标准 DSH **双面 `dsh.client` 包**：
 
 - `package.json` 声明 `dsh.client: { platform: "web" }` 与 `exports["./client"]`；
-- **Node 半部**（`lib/index.js`）：作为组合中的一个 loader 行挂载，用 `webServer` 注册三条精确路由（`/dsh-theme-keyshub/*.jpg`），从包内 `assets/` 提供壁纸；
+- **Node 半部**（`lib/index.js`）：作为组合中的一个 loader 行挂载，用 `webServer` 注册三条精确路由（`/dsh-theme-triptych/*.jpg`），从包内 `assets/` 提供壁纸；
 - **浏览器半部**（`lib/client.js`）：`__ModuleLoader__.load` 工厂包，注册主题、注入壁纸样式、挂载两个切换入口；
 - 宿主扫描到该行后自动把客户端包编入 `window.__DSH_BOOT__`，浏览器按需加载 —— **无需重新构建 DSH Web 产物**。
 
@@ -41,22 +41,22 @@ bash install/install.sh            # 默认 profile: web；可传参: bash insta
 powershell -ExecutionPolicy Bypass -File install/install.ps1   # 可传 -Profile <name>
 ```
 
-脚本会：① 在 `$DSH_HOME/profiles/<profile>` 中 `pnpm add dsh-theme-keyshub`（无 pnpm 则用 npm）；② 向 `cordis.patch.yml` 追加 loader 插入项；③ 提示重启。
+脚本会：① 在 `$DSH_HOME/profiles/<profile>` 中 `pnpm add dsh-theme-triptych`（无 pnpm 则用 npm）；② 向 `cordis.patch.yml` 追加 loader 插入项；③ 提示重启。
 
 ### 方式 B：手动三步
 
 ```bash
 # 1) 安装包（在 DSH 部署的 profile 目录下）
 cd "$DSH_HOME/profiles/web"          # Windows: %USERPROFILE%\.dsh\profiles\web
-pnpm add dsh-theme-keyshub           # 或 npm install dsh-theme-keyshub
+pnpm add dsh-theme-triptych           # 或 npm install dsh-theme-triptych
 
 # 2) 在 cordis.patch.yml 末尾追加（若文件内容是 []，整体替换为下面块）
 ```
 
 ```yaml
 - insert:
-    - id: dsh-theme-keyshub
-      name: dsh-theme-keyshub
+    - id: dsh-theme-triptych
+      name: dsh-theme-triptych
 ```
 
 ```bash
@@ -68,7 +68,7 @@ dsh --profile web
 
 ```bash
 # 壁纸路由（应返回 200 与 image/jpeg）
-curl -I http://127.0.0.1:3080/dsh-theme-keyshub/nexus.jpg
+curl -I http://127.0.0.1:3080/dsh-theme-triptych/nexus.jpg
 # 打开 Web GUI：侧边栏底部出现调色板按钮；设置 → 通用 出现“外观主题 / Theme”
 ```
 
@@ -76,7 +76,7 @@ curl -I http://127.0.0.1:3080/dsh-theme-keyshub/nexus.jpg
 
 ```bash
 cd "$DSH_HOME/profiles/web"
-pnpm remove dsh-theme-keyshub
+pnpm remove dsh-theme-triptych
 # 并从 cordis.patch.yml 删除 installer 追加的 insert 块
 ```
 
@@ -108,8 +108,8 @@ MIT。壁纸图片来自 keyshub.top 项目（`isolo-news/web/public/images`）�
 
 # English
 
-`dsh-theme-keyshub` brings the three appearance themes of [keyshub.top](https://keyshub.top) — **NEXUS** (neon cyan/pink, dark), **COMIKET** (warm paper, light) and **IRONCORE** (industrial amber/teal, dark) — to the DeepSeek Harness Web GUI, wallpapers included.
+`dsh-theme-triptych` brings the three appearance themes of [keyshub.top](https://keyshub.top) — **NEXUS** (neon cyan/pink, dark), **COMIKET** (warm paper, light) and **IRONCORE** (industrial amber/teal, dark) — to the DeepSeek Harness Web GUI, wallpapers included.
 
-It is a standard DSH dual-face `dsh.client` package: the node half serves the three wallpapers over `webServer` routes (`/dsh-theme-keyshub/*.jpg`), the browser half registers the themes (translucent surfaces over a wallpaper via the `--dsw-theme-wallpaper` token), and both a **Settings → General → 外观主题 row** and a **sidebar-footer palette button** switch themes. No web rebuild is required — the host serves the client bundle from disk (`/plugins/<id>/client.js`).
+It is a standard DSH dual-face `dsh.client` package: the node half serves the three wallpapers over `webServer` routes (`/dsh-theme-triptych/*.jpg`), the browser half registers the themes (translucent surfaces over a wallpaper via the `--dsw-theme-wallpaper` token), and both a **Settings → General → 外观主题 row** and a **sidebar-footer palette button** switch themes. No web rebuild is required — the host serves the client bundle from disk (`/plugins/<id>/client.js`).
 
-**Install:** `bash install/install.sh` (or manual: `pnpm add dsh-theme-keyshub` inside `$DSH_HOME/profiles/<profile>`, append the `- insert:` block for `dsh-theme-keyshub` to `cordis.patch.yml`, restart `dsh --profile web`).
+**Install:** `bash install/install.sh` (or manual: `pnpm add dsh-theme-triptych` inside `$DSH_HOME/profiles/<profile>`, append the `- insert:` block for `dsh-theme-triptych` to `cordis.patch.yml`, restart `dsh --profile web`).

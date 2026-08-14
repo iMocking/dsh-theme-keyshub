@@ -22,7 +22,7 @@ const fakeWindow = {
 }
 vm.runInContext(bundle, vm.createContext({ window: fakeWindow, console }))
 assert.ok(registered, 'bundle must register via window.__ModuleLoader__.load')
-assert.equal(registered.id, 'dsh-theme-keyshub')
+assert.equal(registered.id, 'dsh-theme-triptych')
 
 const fakeReact = {
   createElement: () => ({}),
@@ -67,7 +67,7 @@ assert.equal(routes.length, 3, 'three wallpaper routes registered')
 assert.ok(disposers.length === 3, 'route disposers are fiber-owned')
 for (const route of routes) {
   assert.equal(route.kind, 'exact')
-  assert.ok(route.path.startsWith('/dsh-theme-keyshub/'), route.path)
+  assert.ok(route.path.startsWith('/dsh-theme-triptych/'), route.path)
 }
 console.log('✓ node half: 3 exact routes registered:', routes.map((r) => r.path).join(', '))
 

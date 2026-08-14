@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install dsh-theme-keyshub into a dsh deployment profile.
+# Install dsh-theme-triptych into a dsh deployment profile.
 #
 # Usage:
 #   bash install/install.sh                 # default profile: $DSH_PROFILE or "web"
@@ -12,8 +12,8 @@
 set -euo pipefail
 
 PROFILE="${1:-${DSH_PROFILE:-web}}"
-SOURCE="${2:-dsh-theme-keyshub}"
-PKG_NAME="dsh-theme-keyshub"
+SOURCE="${2:-dsh-theme-triptych}"
+PKG_NAME="dsh-theme-triptych"
 DSH_HOME="${DSH_HOME:-$HOME/.dsh}"
 PROFILE_DIR="$DSH_HOME/profiles/$PROFILE"
 
@@ -38,19 +38,19 @@ if grep -q "name: $PKG_NAME" "$PATCH"; then
 else
   if [ "$(tr -d '[:space:]' < "$PATCH")" = "[]" ]; then
     cat > "$PATCH" <<'YAML'
-# dsh-theme-keyshub — appearance themes (added by installer)
+# dsh-theme-triptych — appearance themes (added by installer)
 - insert:
-    - id: dsh-theme-keyshub
-      name: dsh-theme-keyshub
+    - id: dsh-theme-triptych
+      name: dsh-theme-triptych
 YAML
     echo "==> replaced empty patch with the $PKG_NAME insert"
   else
     cat >> "$PATCH" <<'YAML'
 
-# dsh-theme-keyshub — appearance themes (added by installer)
+# dsh-theme-triptych — appearance themes (added by installer)
 - insert:
-    - id: dsh-theme-keyshub
-      name: dsh-theme-keyshub
+    - id: dsh-theme-triptych
+      name: dsh-theme-triptych
 YAML
     echo "==> appended the $PKG_NAME insert to cordis.patch.yml"
   fi
@@ -58,5 +58,5 @@ fi
 
 echo
 echo "Done. Restart dsh, e.g.:  dsh --profile $PROFILE"
-echo "Verify wallpaper route:   curl -I http://127.0.0.1:3080/dsh-theme-keyshub/nexus.jpg"
+echo "Verify wallpaper route:   curl -I http://127.0.0.1:3080/dsh-theme-triptych/nexus.jpg"
 echo "Then in the Web GUI: sidebar-footer palette button, or Settings -> General -> 外观主题"
