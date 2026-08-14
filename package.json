@@ -1,0 +1,44 @@
+{
+  "name": "dsh-theme-keyshub",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness appearance theme pack: NEXUS / COMIKET / IRONCORE palettes and wallpapers from keyshub.top, with a settings row and a sidebar quick switcher",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-theme"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node test/smoke.mjs"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "theme",
+    "appearance",
+    "cordis",
+    "client-plugin"
+  ],
+  "license": "MIT"
+}

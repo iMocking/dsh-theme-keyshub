@@ -1,0 +1,6 @@
+# dsh-theme-keyshub — loader insert example.
+# Append to $DSH_HOME/profiles/<profile>/cordis.patch.yml (or replace the `[]`
+# placeholder file entirely), then restart dsh.
+- insert:
+    - id: dsh-theme-keyshub
+      name: dsh-theme-keyshub
