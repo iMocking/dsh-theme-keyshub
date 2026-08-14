@@ -29,7 +29,10 @@
 const THEME_SPECS = [
   {
     id: 'nexus', displayName: 'NEXUS', colorScheme: 'dark', wallpaper: '/dsh-theme-keyshub/nexus.jpg',
-    alpha: { base: 0.84, layer1: 0.8, layer2: 0.74, overlay: 0.95, sidebar: 0.87 },
+    // Transparency model: the backdrop is nearly open so the wallpaper reads
+    // clearly; only content surfaces (message cards, inputs) keep a
+    // semi-transparent mask for legibility, and popovers stay near-opaque.
+    alpha: { base: 0.35, layer1: 0.78, layer2: 0.7, overlay: 0.94, sidebar: 0.66 },
     colors: {
       primary: '#00f0ff', bgBase: '#0a0e1a', bgLayer1: '#151c2e', bgLayer2: '#1a2035', bgOverlay: '#1e2640',
       sidebar: '#111827', border1: 'rgba(0, 240, 255, 0.15)', border2: 'rgba(0, 240, 255, 0.4)',
@@ -38,7 +41,7 @@ const THEME_SPECS = [
   },
   {
     id: 'comiket', displayName: 'COMIKET', colorScheme: 'light', wallpaper: '/dsh-theme-keyshub/comiket.jpg',
-    alpha: { base: 0.86, layer1: 0.84, layer2: 0.8, overlay: 0.96, sidebar: 0.86 },
+    alpha: { base: 0.4, layer1: 0.82, layer2: 0.76, overlay: 0.95, sidebar: 0.7 },
     colors: {
       primary: '#ff6b2b', bgBase: '#faf8f5', bgLayer1: '#ffffff', bgLayer2: '#ebe6de', bgOverlay: '#ffffff',
       sidebar: '#f2eee8', border1: 'rgba(0, 0, 0, 0.1)', border2: 'rgba(0, 0, 0, 0.24)',
@@ -47,7 +50,7 @@ const THEME_SPECS = [
   },
   {
     id: 'ironcore', displayName: 'IRONCORE', colorScheme: 'dark', wallpaper: '/dsh-theme-keyshub/ironcore.jpg',
-    alpha: { base: 0.84, layer1: 0.8, layer2: 0.74, overlay: 0.95, sidebar: 0.87 },
+    alpha: { base: 0.35, layer1: 0.78, layer2: 0.7, overlay: 0.94, sidebar: 0.66 },
     colors: {
       primary: '#f0a030', bgBase: '#121418', bgLayer1: '#1e2128', bgLayer2: '#22262e', bgOverlay: '#282c35',
       sidebar: '#1a1d24', border1: 'rgba(240, 160, 48, 0.12)', border2: 'rgba(240, 160, 48, 0.36)',
