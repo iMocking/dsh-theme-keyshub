@@ -45,6 +45,10 @@ console.log('✓ client bundle: factory registers and exposes apply/inject')
 /* ── 2. node half routes ───────────────────────────────────────────────── */
 const nodeHalf = await import(new URL('../lib/index.js', import.meta.url))
 assert.equal(typeof nodeHalf.apply, 'function')
+// The node half must declare webServer as a hard injection (boot-order race
+// otherwise silently registers nothing).
+assert.equal(typeof nodeHalf.inject, 'object')
+assert.equal(nodeHalf.inject[0], 'webServer', 'node half must inject webServer')
 
 const routes = []
 const disposers = []
@@ -55,7 +59,7 @@ const fakeWebServer = {
   },
 }
 const fakeCtx = {
-  get: (name) => (name === 'webServer' ? fakeWebServer : undefined),
+  webServer: fakeWebServer,
   effect: (fn) => { disposers.push(fn) },
 }
 nodeHalf.apply(fakeCtx)

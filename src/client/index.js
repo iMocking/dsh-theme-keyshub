@@ -242,11 +242,14 @@ function apply(ctx) {
     ctx.effect(() => dispose)
   }
 
-  // 2. Wallpaper rule + switcher styles, fiber-owned.
+  // 2. Wallpaper rule + switcher styles, fiber-owned. NOTE: ctx.effect(execute)
+  //    runs `execute` immediately and treats its RETURN as the unload cleanup —
+  //    `() => { style.remove() }` would remove the styles right away, so the
+  //    body returns a cleanup function instead.
   const style = document.createElement('style')
   style.textContent = WALLPAPER_CSS + '\n' + UI_CSS
   document.head.appendChild(style)
-  ctx.effect(() => { style.remove() })
+  ctx.effect(() => () => { style.remove() })
 
   // 3. Live preference state for both entry points.
   let preference = theme.getTheme().preference
