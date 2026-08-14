@@ -99,12 +99,16 @@ function buildThemeDef(spec) {
       '--dsw-alias-label-tertiary': c.text3,
       '--dsw-alias-label-caption': c.text3,
       '--dsw-alias-label-dimmed': c.text3,
-      /* ── state accents ── */
+      /* ── state accents ──
+         business-primary is the UI's main interactive accent: active
+         conversation tab text/bar, active folder icon, tool status, composer
+         caret and pending dot — it must be the theme's PRIMARY hue (e.g.
+         COMIKET orange), not the secondary. */
       '--dsw-alias-state-success-primary': c.success,
       '--dsw-alias-state-warn-primary': c.warn,
       '--dsw-alias-state-error-primary': c.error,
-      '--dsw-alias-state-business-primary': c.secondary,
-      '--dsw-alias-state-business-tertiary': hexToRgba(c.secondary, 0.18),
+      '--dsw-alias-state-business-primary': c.primary,
+      '--dsw-alias-state-business-tertiary': hexToRgba(c.primary, 0.18),
       /* ── buttons (composer + generic) ──
          info-fill is the composer send circle (white glyph is hard-coded, so
          it uses the darker primary variant for contrast); tool-bar fill drives
@@ -114,9 +118,9 @@ function buildThemeDef(spec) {
       '--dsw-alias-button-primary-fill': c.primary,
       '--dsw-alias-button-primary-hover': c.primaryDark,
       '--dsw-alias-button-primary-dimmed': hexToRgba(c.primary, 0.35),
-      '--dsw-alias-button-tool-bar-fill': hexToRgba(c.primary, 0.16),
-      '--dsw-alias-button-tool-bar-hover': hexToRgba(c.primary, 0.26),
-      '--dsw-alias-button-tool-bar-fill-invisible': hexToRgba(c.primary, 0.1),
+      '--dsw-alias-button-tool-bar-fill': hexToRgba(c.primary, 0.22),
+      '--dsw-alias-button-tool-bar-hover': hexToRgba(c.primary, 0.34),
+      '--dsw-alias-button-tool-bar-fill-invisible': hexToRgba(c.primary, 0.13),
       '--dsw-alias-button-ghost-active-fill': hexToRgba(c.primary, 0.14),
       '--dsw-alias-button-ghost-active-hover': hexToRgba(c.primary, 0.2),
       '--dsw-alias-button-ghost-active-border': hexToRgba(c.primary, 0.45),
@@ -138,7 +142,7 @@ function buildThemeDef(spec) {
       '--dsw-specific-input-major': hexToRgba(c.bgLayer1, 0.9),
       '--dsw-specific-bubble': hexToRgba(c.bgLayer1, 0.85),
       '--dsw-specific-bubble-highlight': hexToRgba(c.bgLayer2, 0.85),
-      '--dsw-specific-selector': hexToRgba(c.primary, 0.15),
+      '--dsw-specific-selector': hexToRgba(c.primary, 0.22),
       '--dsw-specific-tip': hexToRgba(c.bgTertiary, 0.7),
       '--dsw-specific-sidebar-nav-item-active': hexToRgba(c.primary, 0.14),
       '--dsw-specific-sidebar-nav-item-hover': hexToRgba(c.primary, 0.09),
