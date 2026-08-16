@@ -4,6 +4,17 @@
   "description": "DeepSeek Harness appearance theme pack — NEXUS / COMIKET / IRONCORE, three themed editions (palettes from keyshub.top / isolo-news) with wallpapers, a settings row and a sidebar quick switcher",
   "type": "module",
   "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iMocking/dsh-theme-triptych.git"
+  },
+  "homepage": "https://github.com/iMocking/dsh-theme-triptych",
+  "bugs": {
+    "url": "https://github.com/iMocking/dsh-theme-triptych/issues"
+  },
   "exports": {
     ".": {
       "default": "./lib/index.js"
@@ -34,8 +45,12 @@
   },
   "keywords": [
     "deepseek-harness",
+    "deepseek",
     "dsh",
+    "dsh-plugin",
+    "plugin",
     "theme",
+    "wallpaper",
     "appearance",
     "triptych",
     "nexus",

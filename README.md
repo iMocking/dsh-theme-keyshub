@@ -89,12 +89,17 @@ node test/smoke.mjs      # 无 DSH 运行时依赖的冒烟测试（bundle 契�
 
 ## 发布（维护者）
 
-- 本地：`node scripts/build.mjs` 后 `npm publish --access public`（需 npm 账号）。
-- 自动：打 tag 触发 `.github/workflows/release.yml`（需在仓库 Secrets 配置 `NPM_TOKEN`）：
+DSH 插件没有独立的“提交审核”市场 —— 官方分发渠道就是 **npm**（见 deepseek-ai 官方文档 [`docs/user/develop/basic/publish.zh.md`](https://github.com/deepseek-ai/DeepSeek-Harness/blob/master/docs/user/develop/basic/publish.zh.md)），“能被搜到”取决于 npm 元数据与 GitHub 主题：
 
-```bash
-git tag v0.1.0 && git push origin v0.1.0
-```
+1. **发布到 npm**（官方渠道，`npm search` / `pnpm add` 可发现）：
+   - 本地：`node scripts/build.mjs` 后 `npm publish --access public`（需 npm 账号）。
+   - 自动：打 tag 触发 `.github/workflows/release.yml`（需在仓库 Secrets 配置 `NPM_TOKEN`）：
+   ```bash
+   git tag v0.1.0 && git push origin v0.1.0
+   ```
+2. **优化 npm 可搜索性**：`description` 含 “DeepSeek Harness”，`keywords` 含 `deepseek-harness` / `dsh` / `dsh-plugin`（本包已配置）；补全 `repository` / `homepage` 字段让 npm 页面展示 GitHub 链接。
+3. **让社区插件市场收录**（非官方，但覆盖面最广）：多数社区市场（如 [`DSH-Plugins-Marketplace`](https://github.com/bradeGithub/DSH-Plugins-Marketplace)、[`AwesomeHou/dsh-plugin-marketplace`](https://github.com/AwesomeHou/dsh-plugin-marketplace)）实时同步 GitHub **`dsh-plugin` topic** 下的仓库，或索引 npm 上 `dsh-plugin-*` 名称的包。在 GitHub 仓库页 **About → Topics** 添加 `dsh-plugin`（以及 `deepseek-harness`、`dsh`、`theme`），无需额外申请即可被这些市场自动收录。
+4. 可选：向社区维护的 awesome 列表提交 PR（如 [`awesome-dsh-plugin`](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin)）。
 
 ## 未经安装的试用（动态插件方式）
 
